@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* Set the background color to black */
+body {
+  background: #000;
+  height: 100vh;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Set the text color to white */
+body, h1, h2, h3, h4, h5, h6, p, a {
+  color: #fff;
+}
