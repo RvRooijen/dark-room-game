@@ -89,4 +89,9 @@ export class GameComponent implements OnInit, OnDestroy {
     }
     return costs;
   }
+
+  getStoryEventOpacity(index: number): number {
+    const fadeFactor = 0.8;
+    return Math.pow(fadeFactor, index);
+  }
 }

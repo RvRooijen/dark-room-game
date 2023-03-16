@@ -7,7 +7,7 @@ export interface StoryEvent {
   id: string;
   content: string;
   condition: () => boolean;
-  displayed?: boolean;
+  displayed: boolean;
 }
 
 @Injectable({
@@ -34,27 +34,45 @@ export class StoryService {
     this.storyEvents = [
       {
         id: 'start',
-        content: 'You wake up and find yourself in a forest, with no memory of how you got there. You look around and see a small campfire. You also see a small axe and a small knife.',
+        displayed: false,
+        content: 'You wake up in an ancient, mysterious forest with no memory of how you got there. Your surroundings are filled with strange plants and enchanting sounds.',
         condition: () => true,
       },
       {
-        id: 'gatheringWood',
-        content: 'You start gathering wood...',
-        condition: () => this.resourceService.getResourceByName('Wood')?.amount > 0,
+        id: 'firstClue',
+        displayed: false,
+        content: 'While gathering resources, you stumble upon a mysterious, glowing stone, embedded in a tree. It appears to be an ancient artifact.',
+        condition: () => this.resourceService.getResourceByName('Wood')?.amount >= 10 && this.resourceService.getResourceByName('Stone')?.amount >= 10,
       },
       {
-        id: 'enoughWoodForFire',
-        content: 'You have enough wood to light a fire.',
-        condition: () => {
-          return this.actionService.getGameActionById('lightFire')?.condition() ?? false;
-        },
+        id: 'unlockingMagic',
+        displayed: false,
+        content: 'As you hold the glowing stone, you feel a surge of energy, and your hands start to glow. You have unlocked the ability to manipulate the elements.',
+        condition: () => this.resourceService.getResourceByName('Magic')?.amount >= 1,
       },
       {
-        id: 'warmth',
-        content: 'You start to feel a little bit warmer...',
-        condition: () => {
-          return this.resourceService.getResourceByName('Warmth')?.amount > 0.1;
-        },
+        id: 'meetingCreatures',
+        displayed: false,
+        content: 'You come across a group of mystical creatures who seem to be attracted to your magical abilities. They decide to join you on your journey.',
+        condition: () => this.resourceService.getResourceByName('MysticalCreatures')?.amount >= 1,
+      },
+      {
+        id: 'discoveringAncientRuins',
+        displayed: false,
+        content: 'You discover ancient ruins hidden deep within the forest. Inside, you find more artifacts and clues about the forest\'s enigmatic history.',
+        condition: () => this.resourceService.getResourceByName('AncientRuins')?.amount >= 1,
+      },
+      {
+        id: 'unravelingTheMystery',
+        displayed: false,
+        content: 'As you continue to explore the forest and piece together the clues, you begin to unravel the mystery of the ancient civilization that once thrived here.',
+        condition: () => this.resourceService.getResourceByName('Clues')?.amount >= 10,
+      },
+      {
+        id: 'finalRevelation',
+        displayed: false,
+        content: 'You finally uncover the truth about your own past and your connection to the ancient civilization. The forest has been guiding you all along to help you rediscover your true self.',
+        condition: () => this.resourceService.getResourceByName('Truth')?.amount >= 1,
       },
     ];
   }

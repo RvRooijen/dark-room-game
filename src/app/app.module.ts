@@ -7,12 +7,14 @@ import { GameComponent } from './game/game.component';
 import { ResourceComponent } from './resource/resource.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReversePipe } from './reverse.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
-    ResourceComponent
+    ResourceComponent,
+    ReversePipe
   ],
   imports: [
     BrowserModule,

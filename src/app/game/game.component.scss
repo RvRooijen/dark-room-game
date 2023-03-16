@@ -5,6 +5,19 @@
   position: relative;
 }
 
+.story-event {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .story-section {
   display: flex;
   justify-content: center;

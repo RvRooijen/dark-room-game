@@ -65,7 +65,7 @@ export class ResourceService {
 
   private resourceGenerationMapping: { [key: string]: { resourceName: string; amount: number }[] } = {
     Fire: [
-      { resourceName: 'Warmth', amount: 0.01 }
+      { resourceName: 'Warmth', amount: 0.01 },
     ],
     // Add more mappings for other resources if needed
   };

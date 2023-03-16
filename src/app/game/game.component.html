@@ -1,15 +1,21 @@
 <div class="container">
-  <div class="story-section">
-    <div *ngIf="latestStoryEvent && !fadeOut" [@fadeInOut] class="story-event">
-      {{ latestStoryEvent.content }}
-    </div>
+  <div class="story">
+    <ng-container *ngFor="let storyEvent of storyEvents | reverse; let i = index">
+      <div
+        [style.opacity]="getStoryEventOpacity(i)"
+        [style.transform]="'translateY(' + (i * 20) + 'px)'"
+        class="story-event"
+      >
+        {{ storyEvent.content }}
+      </div>
+    </ng-container>
   </div>
 
   <div class="resource-and-action-section">
     <div class="resources">
       <h3>Resources</h3>
       <div *ngFor="let resource of resources">
-        <p>{{ resource.name }}: {{ resource.amount | number:'1.0-2' }}</p>
+        <p *ngIf="resource.amount > 0">{{ resource.name }}: {{ resource.amount | number:'1.0-2' }}</p>
       </div>
     </div>
 
