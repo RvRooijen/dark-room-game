@@ -9,7 +9,7 @@
     <div class="resources">
       <h3>Resources</h3>
       <div *ngFor="let resource of resources">
-        <p>{{ resource.name }}: {{ resource.amount }}</p>
+        <p>{{ resource.name }}: {{ resource.amount | number:'1.0-2' }}</p>
       </div>
     </div>
 

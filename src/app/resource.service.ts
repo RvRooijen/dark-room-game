@@ -52,6 +52,8 @@ export class ResourceService {
 
             // Ensure that the amount of resources never goes negative
             targetResource.amount = Math.max(0, targetResource.amount);
+
+            this.resourceAcquired.emit(resource);
           }
         }
       }
@@ -63,7 +65,7 @@ export class ResourceService {
 
   private resourceGenerationMapping: { [key: string]: { resourceName: string; amount: number }[] } = {
     Fire: [
-      { resourceName: 'Warmth', amount: 0.1 }
+      { resourceName: 'Warmth', amount: 0.01 }
     ],
     // Add more mappings for other resources if needed
   };

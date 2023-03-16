@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActionService, GameAction } from '../action.service';
-import { Subscription } from 'rxjs';
+import { Subscription, concat, of } from 'rxjs';
 import {Resource, ResourceService} from "../resource.service";
 import {trigger, transition, style, animate, state} from '@angular/animations';
 import {StoryEvent, StoryService} from "../story.service";
+import { DecimalPipe } from '@angular/common';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -21,6 +23,7 @@ import {StoryEvent, StoryService} from "../story.service";
       ])
     ])
   ],
+  providers: [DecimalPipe]
 })
 export class GameComponent implements OnInit, OnDestroy {
   gameActions: GameAction[] = [];
@@ -32,7 +35,7 @@ export class GameComponent implements OnInit, OnDestroy {
   storyEvents$ = this.storyService.getStoryEvents();
   latestStoryEvent: StoryEvent | null = null;
   private storyEventsSubscription: Subscription | undefined;
-
+  storyQueue: StoryEvent[] = [];
   fadeOut: boolean = false;
 
   constructor(private actionService: ActionService, private resourceService: ResourceService, private storyService: StoryService) {}

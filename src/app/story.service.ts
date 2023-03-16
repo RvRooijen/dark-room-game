@@ -15,6 +15,7 @@ export interface StoryEvent {
 })
 export class StoryService {
   private storyEvents$: BehaviorSubject<StoryEvent[]> = new BehaviorSubject<StoryEvent[]>([]);
+  private storyEvents: StoryEvent[] = [];
 
   constructor(
     private resourceService: ResourceService,
@@ -30,11 +31,11 @@ export class StoryService {
   }
 
   private initializeStoryEvents() {
-    const storyEvents: StoryEvent[] = [
+    this.storyEvents = [
       {
         id: 'start',
         content: 'You wake up and find yourself in a forest, with no memory of how you got there. You look around and see a small campfire. You also see a small axe and a small knife.',
-        condition: () => this.resourceService.getResourceByName('Wood')?.amount > 0,
+        condition: () => true,
       },
       {
         id: 'gatheringWood',
@@ -48,24 +49,25 @@ export class StoryService {
           return this.actionService.getGameActionById('lightFire')?.condition() ?? false;
         },
       },
+      {
+        id: 'warmth',
+        content: 'You start to feel a little bit warmer...',
+        condition: () => {
+          return this.resourceService.getResourceByName('Warmth')?.amount > 0.1;
+        },
+      },
     ];
-
-    this.storyEvents$.next(storyEvents);
   }
 
   private checkStoryProgress() {
-    const storyEvents = this.storyEvents$.getValue();
     let updated = false;
 
-    for (const event of storyEvents) {
+    for (const event of this.storyEvents) {
       if (!event.displayed && event.condition()) {
         event.displayed = true;
         updated = true;
+        this.storyEvents$.next([...this.storyEvents$.getValue(), event]);
       }
-    }
-
-    if (updated) {
-      this.storyEvents$.next(storyEvents);
     }
   }
 }
