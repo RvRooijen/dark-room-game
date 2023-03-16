@@ -8,7 +8,7 @@ export interface GameAction {
   description: string;
   enabled: boolean;
   cost?: { [resourceName: string]: number };
-  condition?: () => boolean;
+  condition: () => boolean;
   action: () => void;
 }
 
@@ -44,8 +44,8 @@ export class ActionService {
     return this.gameActions$.asObservable();
   }
 
-  getGameActionById(id: string): GameAction | undefined {
-    return this.gameActions.find((action) => action.id === id);
+  getGameActionById(id: string): GameAction {
+    return this.gameActions.find((action) => action.id === id) ?? ({} as GameAction);
   }
 
   enableAction(id: string, enable: boolean) {
@@ -84,6 +84,7 @@ export class ActionService {
         name: 'Gather Wood',
         description: 'Gather wood from the forest.',
         enabled: true,
+        condition: () => true,
         action: () => this.resourceService.acquireResource('Wood', 1)
       },
       {

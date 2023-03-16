@@ -72,8 +72,8 @@ export class ResourceService {
     return this.resources$.asObservable();
   }
 
-  getResourceByName(name: string): Resource | undefined {
-    return this.resources.find((resource) => resource.name === name);
+  getResourceByName(name: string): Resource {
+    return this.resources.find((resource) => resource.name === name) as Resource;
   }
 
   acquireResource(resourceName: string, amount: number): void {

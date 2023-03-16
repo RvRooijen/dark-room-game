@@ -1,19 +1,52 @@
 .container {
   display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.story-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.resource-and-action-section {
+  display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
 }
 
 .resources {
-  width: 10%;
-  min-width: 200px;
-  margin-right: 20px;
-  padding: 10px;
-  border-radius: 4px;
+  text-align: left;
 }
 
 .actions {
-  width: 55%;
-  min-width: 300px;
+  text-align: right;
+}
+
+.action-button {
+  width: 100%;
+  background-color: #444;
+  border: none;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #555;
+  }
+
+  &:disabled {
+    background-color: #333;
+    cursor: not-allowed;
+  }
 }

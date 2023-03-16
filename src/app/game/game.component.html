@@ -1,27 +1,34 @@
 <div class="container">
-  <div class="resources">
-    <h3>Resources</h3>
-    <div *ngFor="let resource of resources">
-      <p>{{ resource.name }}: {{ resource.amount }}</p>
+  <div class="story-section">
+    <div *ngIf="latestStoryEvent && !fadeOut" [@fadeInOut] class="story-event">
+      {{ latestStoryEvent.content }}
     </div>
   </div>
-  <div class="actions">
-    <h3>Actions</h3>
-    <ng-container *ngFor="let action of gameActions$ | async">
-      <div *ngIf="action.enabled">
-        <button
-          [disabled]="!action.enabled"
-          (click)="performAction(action)"
-          class="action-button"
-        >
-          {{ action.name }}
-          <ng-container *ngFor="let cost of getActionCosts(action)">
-            ({{ cost.resourceName }}: {{ cost.amount }})
-          </ng-container>
-        </button>
+
+  <div class="resource-and-action-section">
+    <div class="resources">
+      <h3>Resources</h3>
+      <div *ngFor="let resource of resources">
+        <p>{{ resource.name }}: {{ resource.amount }}</p>
       </div>
-    </ng-container>
+    </div>
+
+    <div class="actions">
+      <h3>Actions</h3>
+      <ng-container *ngFor="let action of gameActions$ | async">
+        <div *ngIf="action.enabled">
+          <button
+            [disabled]="!action.enabled"
+            (click)="performAction(action)"
+            class="action-button"
+          >
+            {{ action.name }}
+            <ng-container *ngFor="let cost of getActionCosts(action)">
+              ({{ cost.resourceName }}: {{ cost.amount }})
+            </ng-container>
+          </button>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>
-
-
